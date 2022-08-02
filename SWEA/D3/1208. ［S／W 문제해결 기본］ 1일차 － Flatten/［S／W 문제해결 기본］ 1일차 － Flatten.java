@@ -32,7 +32,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.StringTokenizer;
 /*
    사용하는 클래스명이 Solution 이어야 하므로, 가급적 Solution.java 를 사용할 것을 권장합니다.
    이러한 상황에서도 동일하게 java Solution 명령으로 프로그램을 수행해볼 수 있습니다.
@@ -55,18 +54,20 @@ class Solution
 		 */
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringBuilder sb = new StringBuilder();
 		
 		for(int i=0; i<10; i++) {	// 10개의 테스트 케이스 반복
 			ArrayList<Integer> list = new ArrayList<>();	// 상자가 쌓인 것을 list로 선언
 			int cnt = Integer.parseInt(br.readLine());	//	덤프 횟수
-			StringTokenizer st = new StringTokenizer(br.readLine());
+			String[] st = br.readLine().split(" ");
 			for(int j=0; j<100; j++) {	//	박스 초기화
-				list.add(Integer.parseInt(st.nextToken()));
+				list.add(Integer.parseInt(st[j]));
 			}
 			dump(list, cnt);	//	덤프 실행
-			bw.write("#" + (i+1) + " " + getDiff(list));	// 결과값 출력
-			bw.newLine();
+			sb.append("#" + (i+1) + " " + getDiff(list) + "\n"); // 결과값 저장
 		}
+		
+		bw.write(sb.toString());	// 결과값 출
 		
 		bw.flush();
 		bw.close();
