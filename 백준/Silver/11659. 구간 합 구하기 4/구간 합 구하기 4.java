@@ -14,14 +14,13 @@ public class Main {
 		int n = Integer.parseInt(st[0]);	// 숫자의 개수
 		int m = Integer.parseInt(st[1]);	// 합을 구하는 횟수
 		
-		int[] arr = new int[n+1];		// 숫자를 저장할 배열
+		int[] arr = new int[n+1];		// 0번째 인덱스는 0으로 비우고 1부터 채움
 		st = br.readLine().split(" ");
-		arr[0] = 0;						// 0번째 인덱스는 0으로 비우고 1부터 채움
 		for(int i=1; i<n+1; i++) {
 			arr[i] = arr[i-1] + Integer.parseInt(st[i-1]);	// 배열에 저장하면서 이전까지 숫자의 합을 미리 구하고 저
 		}
 		
-		for(int i=m; i>0; i--) {
+		for(int i=m; i>0; i--) {	// 빠른 연산을 위해 변수를 0과 비교
 			st = br.readLine().split(" ");
 			int start = Integer.parseInt(st[0]);	// i번째를 가리키는 시작 인덱스
 			int end = Integer.parseInt(st[1]);	// j번째를 가리키는 끝 인덱스
