@@ -1,6 +1,6 @@
 class Solution {
     boolean solution(String s) {
-        boolean answer = true;
+        boolean answer = false;
         int cnt = 0;
         for(int i=0; i<s.length(); i++) {
             if(s.charAt(i) == '(') {
@@ -8,15 +8,13 @@ class Solution {
             } else if(s.charAt(i) == ')') {
                 cnt--;
                 if(cnt < 0) {
-                    answer = false;
-                    return answer;
+                    break;
                 }
             }
         }
+        
         if(cnt == 0) {
             answer = true;
-        } else if(cnt > 0) {
-            answer = false;
         }
 
         return answer;
