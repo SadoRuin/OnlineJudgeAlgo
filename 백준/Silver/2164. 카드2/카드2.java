@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.Queue;
 
 public class Main {
 
@@ -10,7 +10,7 @@ public class Main {
 		StringBuilder sb = new StringBuilder();
 		
 		int N = Integer.parseInt(br.readLine());	// 카드의 장수
-		Deque<Integer> dq = new ArrayDeque<>();		// queue로 사용할 arraydeque 선언
+		Queue<Integer> dq = new ArrayDeque<>();		// queue로 사용할 arraydeque 선언
 		
 		for(int i=1; i<=N; i++) {	// 1부터 N까지의 카드를 저장
 			dq.offer(i);
