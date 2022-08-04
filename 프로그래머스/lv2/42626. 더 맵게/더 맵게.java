@@ -8,7 +8,7 @@ class Solution {
                 scoville) { // scoville의 값을 순서대로 우선순위큐에 저장
             pq.offer(n);
         }
-        while(pq.peek() < K) {  //  우선순위큐의 Top이 K보다 작으면 반복
+        while(pq.peek() < K) {  //  우선순위큐의 Front가 K보다 작으면 반복
             if(pq.size() == 1) {    // 우선순위큐의 원소수가 1개이면 더이상 K 이상으로 만들 수 없으므로
                 answer = -1;    // 리턴값에 -1을 저장
                 break;  // 반복문 탈출
