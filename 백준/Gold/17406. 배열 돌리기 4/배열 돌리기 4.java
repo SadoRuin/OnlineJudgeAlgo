@@ -14,9 +14,9 @@ public class Main {
 	// 연산 순서를 정하는 메소드
 	static void perm(int cnt) {
 		if(cnt == K) {
-			int[][] newArr = new int[N+1][];
+			int[][] newArr = new int[N+1][];	// 원본을 저장하기 위한 복사본 배열
 			for(int i=0; i<N+1; i++) {
-				newArr[i] = Arrays.copyOf(arr[i], M+1);
+				newArr[i] = Arrays.copyOf(arr[i], M+1);	// 원본을 deep copy
 			}
 			for(int i=0; i<K; i++) {
 				newArr = turnArr(newArr, permOpr[i][0], permOpr[i][1], permOpr[i][2]);
@@ -48,26 +48,26 @@ public class Main {
 	static int[][] turnArr(int[][] array, int r, int c, int s) {
 			
 		for(int i=1; i<=s; i++) {
-			int x1 = r - i;
-			int y1 = c - i;
+			int x1 = r - i;		// 시작 지점 x
+			int y1 = c - i;		// 시작 지점 y
 			
-			int temp = array[x1][y1];
+			int temp = array[x1][y1];	// 시작 지점을 임시로 저장
 			int dir = 0;
 			
-			while(dir < 4) {
-				int nx = x1 + dx[dir];
-				int ny = y1 + dy[dir];
+			while(dir < 4) {	// 모든 방향을 다 돌때까지
+				int nx = x1 + dx[dir];	// x이동
+				int ny = y1 + dy[dir];	// y이동
 				
-				if(nx < r-i || nx > r+i || ny < c-i || ny > c+i) {
-					dir++;
+				if(nx < r-i || nx > r+i || ny < c-i || ny > c+i) {	// 범위를 벗어날 경우
+					dir++;	// 방향 전환
 				} else {
-					array[x1][y1] = array[nx][ny];
+					array[x1][y1] = array[nx][ny];	//	다음 값을 현재위치에 저장
 					x1 = nx;
 					y1 = ny;
 				}
 			}
 			
-			array[x1][y1+1] = temp;
+			array[x1][y1+1] = temp;		// 임시로 저장한 처음 값을 마지막 위치에 저장
 		}
 		
 		return array;
@@ -100,8 +100,8 @@ public class Main {
 			}
 		}
 		
-		visited = new boolean[K];
-		permOpr = new int[K][3];
+		visited = new boolean[K];	//	선택 기록을 나타내는 매열
+		permOpr = new int[K][3];	// 선택된 연산을 담는 배열
 		min = 5000;		// 최대로 나올수 있는 수 있는 합이 5000이므로 min값으로 설정
 		perm(0);
 		
