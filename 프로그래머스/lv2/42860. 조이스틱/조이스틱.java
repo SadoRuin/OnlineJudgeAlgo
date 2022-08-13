@@ -8,7 +8,7 @@ class Solution {
         for(int i=0; i<name.length(); i++) {
             char c = name.charAt(i);    // 해당 위치의 글자
             // 다음 알파벳 순서와 이전 알파벳 순서 중 더 적은 횟수를 더한다
-            answer += c-'A' < 'Z'-c+1 ? c-'A' : 'Z'-c+1;
+            answer += Math.min(c-'A', 'Z'-c+1);
 
             int idx = i + 1;
 
@@ -16,7 +16,7 @@ class Solution {
             while(idx < name.length() && name.charAt(idx) == 'A') {
                 idx++;
             }
-            
+
             // 1. 오른쪽으로 쭉 이동하는 횟수
             // 2. 오른쪽으로 이동하다가 왼쪽으로 이동하는 횟수
             // 3. 왼쪽으로 이동하다가 오른쪽으로 이동하는 횟수
