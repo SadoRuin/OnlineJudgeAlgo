@@ -22,18 +22,18 @@ class Solution {
         Arrays.sort(costs, (a, b) -> a[2] - b[2]);  // 다리의 길이 기준 오름차순으로 정렬
 
         // costs 탐색
-        for(int i=0; i<costs.length; i++) {
+        for (int[] cost : costs) {
             // 두 섬의 루트섬을 찾는다
-            int a = findParent(parent, costs[i][0]);
-            int b = findParent(parent, costs[i][1]);
+            int a = findParent(parent, cost[0]);
+            int b = findParent(parent, cost[1]);
 
             // 현재 섬들의 루트섬이 다를 경우 연결 가능
             // 루트섬이 서로 같을 경우 다리를 연결하면 사이클이 형성되므로 연결 X
-            if(a != b) {
+            if (a != b) {
                 // 두 섬의 루트섬을 같게 한다.
                 parent[b] = a;
                 // 다리 길이를 더한다
-                answer += costs[i][2];
+                answer += cost[2];
             }
         }
 
