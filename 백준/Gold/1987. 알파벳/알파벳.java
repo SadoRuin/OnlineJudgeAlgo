@@ -1,6 +1,5 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 public class Main {
 
@@ -8,26 +7,23 @@ public class Main {
     static final int[] dy = {1, 0, -1, 0};  // 우, 하, 좌, 상
 
     static char[][] board;
+    static boolean[] visited;
     static int R, C, max;
-    static ArrayList<Character> log;
 
-    static void dfs(int depth, int r, int c) {
-        if(depth == R*C) {  // 모든 칸을 다 탐색했을 경우
-            max = Math.max(max, log.size());    // 리스트 내에 있는 알파벳 수 최대값 비교
+    static void dfs(int cnt, int r, int c) {
+        if(cnt == R*C) {  // 모든 칸을 다 탐색했을 경우
+            max = cnt;    // 이동 횟수가 알파벳 수 최대
             return;
         }
-        if(log.indexOf(board[r][c]) != -1) {    // 알파벳이 리스트내에 이미 있을 경우
-            max = Math.max(max, log.size());    // 여태 지나온 알파벳 개수 최대값 비교 후 종료
-            return;
-        }
-        log.add(board[r][c]);   // 리스트에 현재 알파벳 추가
         for(int i=0; i<4; i++) {    // 4방향 탐색
-            if(r+dx[i]<0 || r+dx[i]>=R || c+dy[i]<0 || c+dy[i]>=C) {
-                continue;   // 범위 벗어나면 다른 방향으로
+            if(r+dx[i]>=0 && r+dx[i]<R && c+dy[i]>=0 && c+dy[i]<C &&
+                    !visited[board[r+dx[i]][c+dy[i]] - 'A']) {  // 범위 내이면서 방문한적 없는 알파벳이면
+                visited[board[r+dx[i]][c+dy[i]] - 'A'] = true;  // 방문 처리
+                dfs(cnt+1, r+dx[i], c+dy[i]); // 이동한 위치에서 새로 dfs실행
+                visited[board[r+dx[i]][c+dy[i]] - 'A'] = false; // 방문 처리 취소
             }
-            dfs(depth+1, r+dx[i], c+dy[i]); // 이동한 위치에서 새로 dfs실행
         }
-        log.remove(log.size()-1);   // 4방향 탐색 끝나면 현재 알파벳 제거
+        max = Math.max(max, cnt);   // 이동할 곳이 없으면 현재 이동 횟수와 최대값 비교
     }
 
     public static void main(String[] args) throws Exception {
@@ -45,8 +41,9 @@ public class Main {
             }
         }
 
-        log = new ArrayList<>();
-        dfs(0, 0, 0);
+        visited = new boolean[26];  // 모든 알파벳에 대한 방문 기록
+        visited[board[0][0] - 'A'] = true;  // 초기 위치 방문처리
+        dfs(1, 0, 0);
 
         System.out.println(max);
 
