@@ -11,7 +11,10 @@ class Solution {
     // 모든 고객을 방문하고 집까지 가는 최단거리를 구하는 메소드
     static void search(int n, int cnt, int sum) {
         if(cnt == N) {  // 모든 고객을 다 방문했다면
-            min = Math.min(min, sum+distance(cord[n], cord[1])); // 집까지 거리를 더하고 최소값 비교
+            int tmp = sum + distance(cord[n], cord[1]); // 현재까지 거리합에서 집까지 거리를 더함
+            if(tmp < min) { // 최소값보다 작으면
+                min = tmp;  // 최소값 갱신
+            }
             return;
         }
         // 모든 좌표를 목적지로 정하는 것을 반복
