@@ -10,7 +10,7 @@ class Solution {
         for(int i=1; i<n; i++) {
             for (int j=0; j<i; j++) {    // 무향그래프 이므로 절반만 탐색
                 if (computers[i][j] == 1) {  // 두 컴퓨터가 연결되어 있으면
-                    int tmp = parent[j];
+                    int tmp = parent[j];    // 값이 for문 반복 중에 바뀔수 있으므로 임시변수에 저장
                     for (int k=0; k<n; k++) {
                         if (parent[k] == tmp) {    // j와 부모가 같은 모든 노드를
                             parent[k] = parent[i];  // i의 부모로 변경
