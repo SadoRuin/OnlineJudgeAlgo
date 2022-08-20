@@ -27,14 +27,10 @@ public class Main {
         int sum = 0;
         for(int i=0; i<N; i++) {
             for(int j=0; j<M; j++) {
-                sum += arr[i][j];   // 배열 내의 모든 원소의 합을 구해서
+                sum += arr[i][j];   // 배열 내의 모든 원소의 합을 구한다
             }
         }
-        if(sum == 0) {  // 0이라면
-            return true;    // 적이 다 없어졌으므로 true를 반환
-        } else {    // 0이 아니라면
-            return false;   //  적이 남아있으므로 false를 반환
-        }
+        return sum == 0;    // 원소합이 0이면 적이 없으므로 true 0이 아니면 적이 있으므로 false 반환
     }
 
     // 궁수의 위치를 선택하고 공격 횟수를 구하는 메소드
@@ -93,7 +89,7 @@ public class Main {
             max = Math.max(max, count); // 공격횟수 최대 비교
             return;
         }
-        
+
         // 궁수 위치 선택
         bowyer[index] = true;
         comb(index+1, cnt+1);
