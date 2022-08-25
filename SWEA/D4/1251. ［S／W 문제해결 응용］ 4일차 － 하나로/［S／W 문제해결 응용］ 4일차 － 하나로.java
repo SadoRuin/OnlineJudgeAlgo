@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 class Solution {
@@ -10,17 +11,10 @@ class Solution {
     static class Node {
         int vertex; // 정점 인덱스
         double weight;  // 가중치
-        Node next;  // 다음 노드
 
         public Node(int vertex, double weight) {    // 우선순위큐에 넣을때 사용할 생성자
             this.vertex = vertex;
             this.weight = weight;
-        }
-
-        public Node(int vertex, double weight, Node next) { // 인접리스트를 만들때 사용할 생성자
-            this.vertex = vertex;
-            this.weight = weight;
-            this.next = next;
         }
     }
 
@@ -49,11 +43,11 @@ class Solution {
             }
             E = Double.parseDouble(br.readLine());  // 환경 부담 세율 입력
 
-            Node[] adjList = new Node[N];   // 노드 클래스로 인접리스트 생성
+            double[][] adjMat = new double[N][N];
             for(int i=0; i<N; i++) {
                 for(int j=0; j<N; j++) {    // 이중 for문을 돌면 무향그래프의 인접리스트 완성
                     if(i == j) continue;    // 자기 자신이 목저지일 경우는 제외
-                    adjList[i] = new Node(j, distance(X[i], Y[i], X[j], Y[j]), adjList[i]);
+                    adjMat[i][j] = distance(X[i], Y[i], X[j], Y[j]);
                 }
             }
 
@@ -66,22 +60,24 @@ class Solution {
             double result = 0;  // 비용 누적 변수
 
             // 비용을 기준으로 오름차순 정렬로 우선순위큐 구성
-            PriorityQueue<Node> pQueue = new PriorityQueue<>((v1, v2) -> Double.compare(v1.weight, v2.weight));
+            PriorityQueue<Node> pQueue = new PriorityQueue<>(Comparator.comparingDouble(v -> v.weight));
             pQueue.offer(new Node(0, minEdge[0])); // 시작점인 0번 정점 추가
 
             int cnt = 0;    // 신장트리에 추가된 정점의 수
             while(true) {
                 Node minVertex = pQueue.poll(); // 최소 비용의 정점을 꺼냄
+                int cur = minVertex.vertex;
 
-                if(visited[minVertex.vertex]) continue; // 방문 했었다면 버림
-                visited[minVertex.vertex] = true;   // 방문 기록
+                if(visited[cur]) continue; // 방문 했었다면 버림
+                visited[cur] = true;   // 방문 기록
                 result += minVertex.weight; // 비용 누적
                 if(++cnt == N) break;   // 추가된 정점 개수 상승하고 정점의 개수가 됐으면 무한루프 종료
 
-                for(Node tmp = adjList[minVertex.vertex]; tmp != null; tmp = tmp.next) {    // 최소비용 정점과 연결된 모든 정점 탐색
-                    if(!visited[tmp.vertex] && minEdge[tmp.vertex] > tmp.weight) {  // 방문하지 않았으면서 비용이 더 작은 연결이라면
-                        minEdge[tmp.vertex] = tmp.weight;   // 최소비용을 갱신하고
-                        pQueue.offer(new Node(tmp.vertex, minEdge[tmp.vertex]));    // 해당 정점을 우선순위큐에 새로 추가
+                for(int j=0; j<N; j++) {    // 최소비용 정점과 연결된 모든 정점 탐색
+                    if(cur == j) continue;  // 목적지가 자기 자신이면 스킵
+                    if(!visited[j] && minEdge[j] > adjMat[cur][j]) {    // 방문하지 않았으면서 비용이 더 적은 연결이라면
+                        minEdge[j] = adjMat[cur][j];    // 최소 비용을 갱신하고
+                        pQueue.offer(new Node(j, minEdge[j]));  // 해당 정점을 우선순위큐에 새로 추가
                     }
                 }
             }
