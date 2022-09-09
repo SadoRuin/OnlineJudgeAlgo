@@ -30,6 +30,6 @@ public class Main {
             result += n/2;  // 절반으로 해서 결과값에 더한다
         }
 
-        System.out.println(Math.floor(result * 10e+5)/10e+5);   // 10^(-5) 자리수까지 출력
+        System.out.println(result);   // 결과물 출력
     }
 }
