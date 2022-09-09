@@ -21,13 +21,13 @@ public class Main {
             // 수강신청한 사람들의 마일리지 오름차순 정렬
             int[] tmp = Arrays.stream(br.readLine().split(" ")).mapToInt(Integer::parseInt).sorted().toArray();
 
-            if(arr[i][0] < arr[i][1] && m != 0) {   // 아직 자리가 남은 경우
-                m--;    // 마일리지 1감소
-                count++;    // 수강과목 개수 증가
-            } else {    // 정원이 초과된경우
-                if(tmp.length - arr[i][1] >= 0) {
-                    arr[i][2] = tmp[tmp.length - arr[i][1]]; // 그 과목의 턱걸이 마일리지를 기록
+            if(arr[i][0] < arr[i][1]) {   // 아직 자리가 남은 경우
+                if(m != 0) {    // 마일리지가 남아 있다면
+                    m--;    // 마일리지 1감소
+                    count++;    // 수강과목 개수 증가
                 }
+            } else {    // 정원이 초과된경우
+                arr[i][2] = tmp[tmp.length - arr[i][1]]; // 그 과목의 턱걸이 마일리지를 기록
             }
         }
 
