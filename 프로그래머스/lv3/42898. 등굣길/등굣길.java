@@ -18,8 +18,6 @@ class Solution {
             }
         }
 
-        int answer = dp[n][m];  // 마지막 위치의 값이 최단 경로 개수
-
-        return answer;
+        return dp[n][m];
     }
 }
