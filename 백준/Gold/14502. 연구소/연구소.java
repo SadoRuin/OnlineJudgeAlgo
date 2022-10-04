@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 public class Main {
@@ -9,18 +11,17 @@ public class Main {
 
     static int N, M, max;
     static int[][] map;
+    static List<int[]> virusList;
 
     // 3개의 방벽 위치를 정하고 그 경우에 바이러스가 퍼진다면 남는 안전영역 개수 계산
     static void dfs(int cnt) {
         if(cnt == 3) {  // 벽 3개를 다 설치 했다면
             Queue<int[]> queue = new ArrayDeque<>();
-            for(int i=0; i<N; i++) {
-                for(int j=0; j<M; j++) {
-                    if(map[i][j] == 2) {    // 바이러스 위치
-                        queue.offer(new int[] {i, j});  // 전부 큐에 저장
-                    }
-                }
+            for (int[] v :
+                    virusList) {    // 바이러스 위치들
+                queue.offer(v); // 전부 큐에 저장
             }
+
             int[][] newMap = new int[N][M];
             for(int i=0; i<N; i++) {    // 원본이 변경되지 않도록 카피
                 System.arraycopy(map[i], 0, newMap[i], 0, M);
@@ -72,11 +73,15 @@ public class Main {
         N = Integer.parseInt(st[0]);
         M = Integer.parseInt(st[1]);
         map = new int[N][M];
+        virusList = new ArrayList<>();
 
         for(int i=0; i<N; i++) {
             st = br.readLine().split(" ");
             for(int j=0; j<M; j++) {
                 map[i][j] = Integer.parseInt(st[j]);
+                if(map[i][j] == 2) {
+                    virusList.add(new int[] {i, j});
+                }
             }
         }
 
