@@ -145,9 +145,7 @@ class Solution {
 
     private static void copy(int[][] map, int[][] newMap) {
         for(int r=0; r<H; r++) {
-            for(int c=0; c<W; c++) {
-                newMap[r][c] = map[r][c];
-            }
+            if (W >= 0) System.arraycopy(map[r], 0, newMap[r], 0, W);
         }
     }
 }
