@@ -23,7 +23,7 @@ public class Main {
         queue.offer(new int[] {0, 0});  // 시작 지점 0,0을 큐에 저장
         visited[0][0] = true;   // 0,0을 방문처리
 
-        while(!queue.isEmpty()) {   // 큐가 빌떄까지 반복
+        while(!queue.isEmpty()) {   // 큐가 빌때까지 반복
             int[] cur = queue.poll();   // 현재 위치를 꺼냄
             int x = cur[0]; // 현재 행 위치
             int y = cur[1]; // 현재 열 위치
