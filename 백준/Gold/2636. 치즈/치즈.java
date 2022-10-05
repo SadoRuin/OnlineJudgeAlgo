@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.Queue;
 
 public class Main {
-    static final int dx[] = {0, 1, 0, -1};  // 우, 하, 좌, 상
-    static final int dy[] = {1, 0, -1, 0};  // 우, 하, 좌, 상
+    static final int[] dx = {0, 1, 0, -1};  // 우, 하, 좌, 상
+    static final int[] dy = {1, 0, -1, 0};  // 우, 하, 좌, 상
 
     static int N, M, cheeseCnt;
     static int[][] cheese;
