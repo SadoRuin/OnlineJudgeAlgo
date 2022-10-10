@@ -39,11 +39,8 @@ public class Main {
                 }
             }
         }
-        if(cnt == area.size()) {    // 방문지역 카운트가 선거구 수와 같으면 모든 선거구가 연결되어 있으므로
-            return true;    // true 반환
-        } else {    // 그렇지 않으면
-            return false;   // false 반환
-        }
+        // 방문지역 카운트가 선거구 수와 같으면 모든 선거구가 연결되어 있으므로 true 반환
+        return cnt == area.size();
     }
 
     public static void main(String[] args) throws Exception {
