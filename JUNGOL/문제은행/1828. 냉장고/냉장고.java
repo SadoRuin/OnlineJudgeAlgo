@@ -17,9 +17,7 @@ public class Main {
             chem[i][1] = Integer.parseInt(st[1]);
         }
 
-        Arrays.sort(chem, (o1, o2) -> {
-            return o1[1] != o2[1] ? o1[1] - o2[1] : o1[0] - o2[0];
-        });   // 화학물질의 최고온도를 기준으로 오름차순 정렬, 만약 같으면 최저온도 기준으로 오름차순 정렬
+        Arrays.sort(chem, (o1, o2) -> o1[1] != o2[1] ? o1[1] - o2[1] : o1[0] - o2[0]);   // 화학물질의 최고온도를 기준으로 오름차순 정렬, 만약 같으면 최저온도 기준으로 오름차순 정렬
 
         list.add(chem[0]);  // 가장 최고온도가 낮은 화학물질을 list에 넣는다
 
