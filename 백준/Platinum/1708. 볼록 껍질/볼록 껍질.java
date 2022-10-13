@@ -35,13 +35,16 @@ public class Main {
             list.add(new Point(x, y));
         }
 
-        list.sort((o1, o2) -> { // y가 작은 것부터 y가 같으면 x가 작은것부터 정렬
-           if(o1.y == o2.y) return Long.compare(o1.x, o2.x);
-           return Long.compare(o1.y, o2.y);
-        });
-
-        start = list.get(0);    // 기준점 선정
-        list.remove(0); // 기준점을 리스트에서 삭제
+        // 기준점 선정
+        start = list.get(0);
+        for(int i=1; i<list.size(); i++) {
+            Point p = list.get(i);
+            if(p.y < start.y) { // y가 더 작으면
+                start = p;  // 기준점 갱신
+            } else if(p.y == start.y && p.x < start.x) {    // y값이 같고 x가 더 작으면
+                start = p;  // 기준점 갱신
+            }
+        }
 
         list.sort((o1, o2) -> { // 그라함 스캔을 위해 남은 점들을 정렬
             long ccw = cross(start, o1, o2);
@@ -60,8 +63,8 @@ public class Main {
 
         Deque<Point> stack = new ArrayDeque<>();    // 스택에 볼록 다각형을 만들 점들을 담음
         stack.push(start);  // 기준점을 넣고
-        stack.push(list.get(0));    // 리스트 제일 앞의 점을 넣음
-        for (int i=1; i<list.size(); i++) { // 리스트 인덱스 1부터 끝까지 반복
+        stack.push(list.get(1));    // 리스트 제일 앞의 점을 넣음
+        for (int i=2; i<list.size(); i++) { // 리스트 인덱스 1부터 끝까지 반복
             Point C = list.get(i);  // 현재 점
             while(stack.size() > 1) {   // 스택에 들어있는 점이 2개이상이면
                 Point B = stack.pop();  // 제일 위에꺼
