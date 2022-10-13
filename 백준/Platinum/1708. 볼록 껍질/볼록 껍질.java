@@ -63,8 +63,8 @@ public class Main {
 
         Deque<Point> stack = new ArrayDeque<>();    // 스택에 볼록 다각형을 만들 점들을 담음
         stack.push(start);  // 기준점을 넣고
-        stack.push(list.get(1));    // 리스트 제일 앞의 점을 넣음
-        for (int i=2; i<list.size(); i++) { // 리스트 인덱스 1부터 끝까지 반복
+        stack.push(list.get(1));    // 리스트 제일 앞의 점을 넣음 (인덱스 0은 기준점)
+        for (int i=2; i<list.size(); i++) { // 리스트 인덱스 2부터 끝까지 반복
             Point C = list.get(i);  // 현재 점
             while(stack.size() > 1) {   // 스택에 들어있는 점이 2개이상이면
                 Point B = stack.pop();  // 제일 위에꺼
