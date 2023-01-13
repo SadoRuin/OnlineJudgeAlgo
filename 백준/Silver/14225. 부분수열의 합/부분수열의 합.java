@@ -3,25 +3,17 @@ import java.io.InputStreamReader;
 
 public class Main {
     static int N;
-    static int[] S, nums;
-    static boolean[] isSelected;
+    static int[] S;
+    static boolean[] nums;
 
-    static void subset(int index) {
+    static void subset(int index, int sum) {
         if(index == N) {
-            int sum = 0;
-            for(int i=0; i<N; i++) {
-                if(isSelected[i]) {
-                    sum += S[i];
-                }
-            }
-            nums[sum]++;
+            nums[sum] = true;
             return;
         }
 
-        isSelected[index] = true;
-        subset(index + 1);
-        isSelected[index] = false;
-        subset(index + 1);
+        subset(index + 1, sum + S[index]);
+        subset(index + 1, sum);
     }
 
     public static void main(String[] args) throws Exception {
@@ -35,13 +27,12 @@ public class Main {
             S[i] = Integer.parseInt(st[i]);
         }
 
-        isSelected = new boolean[N];
-        nums = new int[2000000];
+        nums = new boolean[N * 100000 + 1];
 
-        subset(0);
+        subset(0, 0);
 
-        for(int i=1; i<2000000; i++) {
-            if(nums[i] == 0) {
+        for(int i=1; i<nums.length; i++) {
+            if(!nums[i]) {
                 System.out.println(i);
                 System.exit(0);
             }
