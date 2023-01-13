@@ -2,34 +2,39 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class Main {
+    static int N, S, totalCnt;
+    static int[] arr;
+
+    static void subset(int cnt, int sum) {
+        if(cnt == N) {
+            if(sum == S) {
+                totalCnt++;
+            }
+            return;
+        }
+
+        subset(cnt+1, sum+arr[cnt]);
+        subset(cnt+1, sum);
+    }
+
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-
         String[] st = br.readLine().split(" ");
-        int N = Integer.parseInt(st[0]);
-        int S = Integer.parseInt(st[1]);
-        int[] arr = new int[N];
+        N = Integer.parseInt(st[0]);
+        S = Integer.parseInt(st[1]);
+        arr = new int[N];
 
         st = br.readLine().split(" ");
         for(int i=0; i<N; i++) {
             arr[i] = Integer.parseInt(st[i]);
         }
 
-        int cnt = 0;
-        for(int flag=1, caseCnt=1<<N; flag<caseCnt; flag++) {
-            int sum = 0;
-            for(int i=0; i<N; i++) {
-                if((flag & 1<<i) != 0) {
-                    sum += arr[i];
-                }
-            }
-            if(sum == S) {
-                cnt++;
-            }
-        }
+        subset(0, 0);
 
-        System.out.println(cnt);
+        if(S == 0) totalCnt--;
+
+        System.out.println(totalCnt);
 
     }
 }
