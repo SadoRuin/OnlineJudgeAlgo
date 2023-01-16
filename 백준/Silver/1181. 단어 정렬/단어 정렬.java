@@ -5,6 +5,7 @@ import java.util.TreeSet;
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         int N = Integer.parseInt(br.readLine());
 
@@ -22,8 +23,10 @@ public class Main {
 
         for (String word :
                 words) {
-            System.out.println(word);
+            sb.append(word).append("\n");
         }
+
+        System.out.println(sb.toString());
 
         br.close();
     }
