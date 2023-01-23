@@ -4,6 +4,7 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         String[] st = br.readLine().split(" ");
         int M = Integer.parseInt(st[0]);
@@ -20,9 +21,11 @@ public class Main {
 
         for(int i=M; i<=N; i++) {
             if(!prime[i]) {
-                System.out.println(i);
+                sb.append(i).append("\n");
             }
         }
+
+        System.out.println(sb);
 
         br.close();
     }
