@@ -12,12 +12,9 @@ public class Main {
         boolean[] prime = new boolean[N+1];
         prime[0] = prime[1] = true;
 
-        // 에라토스테네스의 체
-        for(int i=2; i*i<=N; i++) {
-            if(!prime[i]) {
-                for(int j=i*i; j<=N; j+=i) {
-                    prime[j] = true;
-                }
+        for(int i=2; i<=Math.sqrt(N); i++) {
+            for(int j=2; i*j<=N; j++) {
+                prime[i*j] = true;
             }
         }
 
